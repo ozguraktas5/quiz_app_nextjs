@@ -1,6 +1,11 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import * as Slider from "@radix-ui/react-slider";
-import React from "react";
+
+
+
 export default function Home() {
   return (
     <main className="wrapper flex justify-center items-center h-screen">
@@ -69,8 +74,9 @@ export default function Home() {
             <p className="text-sm lg:text-sm font-bold">Total Questions: 10</p>
             <Slider.Root
               className="SliderRoot"
-              defaultValue={[50]}
-              orientation="vertical"
+              defaultValue={[10,90]}
+              orientation="horizontal"
+              step={10}
             >
               <Slider.Track className="SliderTrack">
                 <Slider.Range className="SliderRange" />

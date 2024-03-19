@@ -18,7 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #d1d5db;
+  background: #d1d5db
 }
 
 @layer utilities {
@@ -32,18 +32,19 @@ body {
   display: flex;
   align-items: center;
 }
-.SliderRoot[data-orientation="vertical"] {
-  flex-direction: column;
-  width: 20px;
-  height: 100px;
+.SliderRoot[data-orientation='horizontal'] {
+  flex-direction: row;
+  width: 270px;
+  height: 10px;
+  background-color: lightgray;
 }
 
 .SliderTrack {
   position: relative;
   flex-grow: 1;
-  background-color: grey;
+  background-color: rgb(23, 23, 23);
 }
-.SliderTrack[data-orientation="vertical"] {
+.SliderTrack[data-orientation='horizontal'] {
   width: 3px;
 }
 
@@ -51,7 +52,7 @@ body {
   position: absolute;
   background-color: black;
 }
-.SliderRange[data-orientation="vertical"] {
+.SliderRange[data-orientation='horizontal'] {
   width: 100%;
 }
 
