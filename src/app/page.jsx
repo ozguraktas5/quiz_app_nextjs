@@ -74,7 +74,7 @@ export default function Home() {
             <p className="text-sm lg:text-sm font-bold">Total Questions: 10</p>
             <Slider.Root
               className="SliderRoot"
-              defaultValue={[10,90]}
+              defaultValue={[10,80]}
               orientation="horizontal"
               step={10}
             >

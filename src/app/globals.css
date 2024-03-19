@@ -34,7 +34,7 @@ body {
 }
 .SliderRoot[data-orientation='horizontal'] {
   flex-direction: row;
-  width: 270px;
+  width: 240px;
   height: 10px;
   background-color: lightgray;
 }
