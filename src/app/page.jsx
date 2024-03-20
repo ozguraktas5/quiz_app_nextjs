@@ -2,18 +2,18 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import * as Slider from "@radix-ui/react-slider";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+
+function valuetext(value) {
+  return `${value}`;
+}
 
 export default function Home() {
-  const [totalQuestions, setTotalQuestions] = useState(10);
-  const [sliderValue, setSliderValue] = useState([6]);
+  const [totalQuestions, setTotalQuestions] = useState(5);
 
-  const handleSliderChange = (newValue) => {
-    setSliderValue(newValue);
-    let total = newValue.map((value) => Math.round(value / 6) * 5);
-    // Eğer slider'ın değeri 0'a düşerse, total soru sayısını minimum bir değer olarak ayarla
-    total = total.map((value) => Math.max(value, 5));
-    setTotalQuestions(total);
+  const handleSliderChange = (event, newValue) => {
+    setTotalQuestions(newValue);
   };
 
   return (
@@ -80,21 +80,21 @@ export default function Home() {
                 <path d="m6 9 6 6 6-6"></path>
               </svg>
             </button>
-            <p className="text-sm lg:text-sm font-bold">
-              Total Questions: {totalQuestions}
-            </p>
-            <Slider.Root
-              className="SliderRoot"
-              defaultValue={[6]}
-              onValueChange={handleSliderChange}
-              orientation="horizontal"
-              step={6}
-            >
-              <Slider.Track className="SliderTrack">
-                <Slider.Range className="SliderRange" />
-              </Slider.Track>
-              <Slider.Thumb className="SliderThumb" />
-            </Slider.Root>
+            <p className="text-sm lg:text-sm font-bold">Total Questions: {totalQuestions}</p>
+            <Box sx={{ width: 300 }}>
+              <Slider
+                aria-label="Temperature"
+                Value={totalQuestions}
+                onChange={handleSliderChange}
+                getAriaValueText={valuetext}
+                valueLabelDisplay="auto"
+                shiftStep={30}
+                step={5}
+                
+                min={5}
+                max={50}
+              />
+            </Box>
           </div>
         </div>
       </div>
