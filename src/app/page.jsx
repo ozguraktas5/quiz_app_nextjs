@@ -4,6 +4,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function valuetext(value) {
   return `${value}`;
@@ -11,6 +15,16 @@ function valuetext(value) {
 
 export default function Home() {
   const [totalQuestions, setTotalQuestions] = useState(5);
+  const [category, setCategory] = React.useState("");
+  const [difficulty, setDifficulty] = React.useState("");
+
+  const handleChangeCategory = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleChangeDifficulty = (event) => {
+    setDifficulty(event.target.value);
+  };
 
   const handleSliderChange = (event, newValue) => {
     setTotalQuestions(newValue);
@@ -38,50 +52,51 @@ export default function Home() {
             <h2 className="text-center tracking-wider text-lg md:text-xl lg:text-2xl font-bold">
               Quiz Settings
             </h2>
-            <button
-              type="button"
-              className="flex h-10 items-center justify-between rounded-md border border-input p-3 text-sm w-full"
-            >
-              <span className="text-lg">Category</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-chevron-down h-4 w-4 opacity-50"
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6"></path>
-              </svg>
-            </button>
-            <button
-              type="button"
-              className="flex h-10 items-center justify-between rounded-md border border-input p-3 text-sm w-full"
-            >
-              <span className="text-lg">Difficulty</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-chevron-down h-4 w-4 opacity-50"
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6"></path>
-              </svg>
-            </button>
-            <p className="text-sm lg:text-sm font-bold">Total Questions: {totalQuestions}</p>
-            <Box sx={{ width: 300 }}>
+            <Box sx={{ minWidth: 320 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Category"
+                  onChange={handleChangeCategory}
+                >
+                  <MenuItem value={"General Knowledge"}>General Knowledge</MenuItem>
+                  <MenuItem value={"Arts & Literature"}>Arts & Literature</MenuItem>
+                  <MenuItem value={"Film & TV"}>Film & TV</MenuItem>
+                  <MenuItem value={"Food & Drink"}>Food & Drink</MenuItem>
+                  <MenuItem value={"Society & Culture"}>Society & Culture</MenuItem>
+                  <MenuItem value={"Geography"}>Geography</MenuItem>
+                  <MenuItem value={"History"}>History</MenuItem>
+                  <MenuItem value={"Music"}>Music</MenuItem>
+                  <MenuItem value={"Sport & Leisure"}>Sport & Leisure</MenuItem>
+                  <MenuItem value={"Science"}>Science</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ minWidth: 320 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={difficulty}
+                  label="Difficulty"
+                  onChange={handleChangeDifficulty}
+                >
+                  <MenuItem value={"Easy"}>Easy</MenuItem>
+                  <MenuItem value={"Medium"}>Medium</MenuItem>
+                  <MenuItem value={"Hard"}>Hard</MenuItem>
+                  
+                </Select>
+              </FormControl>
+            </Box>
+
+            <p className="text-sm lg:text-sm font-bold">
+              Total Questions: {totalQuestions}
+            </p>
+            <Box sx={{ width: 300, margin: "1rem" }}>
               <Slider
                 aria-label="Temperature"
                 Value={totalQuestions}
@@ -90,7 +105,7 @@ export default function Home() {
                 valueLabelDisplay="auto"
                 shiftStep={30}
                 step={5}
-                
+                marks
                 min={5}
                 max={50}
               />
