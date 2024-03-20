@@ -44,6 +44,11 @@ export default function Home() {
     }
   };
 
+  const handleStartQuiz = () => {
+    const url = `http://localhost:3000/questions?category=${encodeURIComponent(category)}&difficulty=${encodeURIComponent(difficulty)}&limit=${totalQuestions}`;
+    window.location.href = url;
+  };
+
   return (
     <main className="wrapper flex justify-center items-center h-screen">
       <div className="bg-white p-3 rounded-md md:w-[90%] lg:w-[70%] w-full h-full md:h-[70%] lg:h-[70%] shadow-lg max-w-4xl">
@@ -133,7 +138,11 @@ export default function Home() {
             </Box>
 
             <Stack direction="row" spacing={2}>
-              <Button variant="contained" href="#contained-buttons" disabled={!isQuizReady}>
+              <Button
+                variant="contained"
+                onClick={handleStartQuiz}
+                disabled={!isQuizReady}
+              >
                 Start Quiz
               </Button>
             </Stack>
