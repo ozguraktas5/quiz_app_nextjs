@@ -1,12 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import * as Slider from "@radix-ui/react-slider";
 
 
 
 export default function Home() {
+  const [ totalQuestions, setTotalQuestions ] = useState(10);
+  const [ sliderValue, setSliderValue ] = useState([5]);
+
+  const handleSliderChange = (newValue) => {
+    setSliderValue(newValue);
+    const total = newValue.map(value => Math.round(value / 12) * 5);
+    setTotalQuestions(total);
+  }; 
   return (
     <main className="wrapper flex justify-center items-center h-screen">
       <div className="bg-white p-3 rounded-md md:w-[90%] lg:w-[70%] w-full h-full md:h-[70%] lg:h-[70%] shadow-lg max-w-4xl">
@@ -71,12 +79,13 @@ export default function Home() {
                 <path d="m6 9 6 6 6-6"></path>
               </svg>
             </button>
-            <p className="text-sm lg:text-sm font-bold">Total Questions: 10</p>
+            <p className="text-sm lg:text-sm font-bold">Total Questions: {totalQuestions}</p>
             <Slider.Root
               className="SliderRoot"
-              defaultValue={[10,80]}
+              defaultValue={sliderValue}
+              onValueChange={handleSliderChange}
               orientation="horizontal"
-              step={10}
+              step={12}
             >
               <Slider.Track className="SliderTrack">
                 <Slider.Range className="SliderRange" />

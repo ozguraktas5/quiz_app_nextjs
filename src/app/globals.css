@@ -34,7 +34,7 @@ body {
 }
 .SliderRoot[data-orientation='horizontal'] {
   flex-direction: row;
-  width: 240px;
+  width: 340px;
   height: 10px;
   background-color: lightgray;
 }
@@ -58,7 +58,11 @@ body {
 
 .SliderThumb {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 30px; /* Örnek olarak artırılmış boyut */
+  height: 30px; /* Örnek olarak artırılmış boyut */
+  border-radius: 50%; /* Dairesel buton */
   background-color: black;
+  cursor: pointer; /* İşaretçiyi sürüklemeyi temsil eder */
+  touch-action: pan-x; /* Dokunmatik sürükleme için yatay panning etkinleştirme */
 }
+
