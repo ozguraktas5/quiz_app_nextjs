@@ -8,6 +8,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 function valuetext(value) {
   return `${value}`;
@@ -17,17 +19,29 @@ export default function Home() {
   const [totalQuestions, setTotalQuestions] = useState(5);
   const [category, setCategory] = React.useState("");
   const [difficulty, setDifficulty] = React.useState("");
+  const [isQuizReady, setIsQuizReady] = useState(false);
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
+    checkQuizReady(event.target.value, difficulty);
   };
 
   const handleChangeDifficulty = (event) => {
     setDifficulty(event.target.value);
+    checkQuizReady(category, event.target.value);
   };
 
   const handleSliderChange = (event, newValue) => {
     setTotalQuestions(newValue);
+    checkQuizReady(category, difficulty);
+  };
+
+  const checkQuizReady = (category, difficulty) => {
+    if (category && difficulty && totalQuestions >= 5) {
+      setIsQuizReady(true);
+    } else {
+      setIsQuizReady(false);
+    }
   };
 
   return (
@@ -62,11 +76,17 @@ export default function Home() {
                   label="Category"
                   onChange={handleChangeCategory}
                 >
-                  <MenuItem value={"General Knowledge"}>General Knowledge</MenuItem>
-                  <MenuItem value={"Arts & Literature"}>Arts & Literature</MenuItem>
+                  <MenuItem value={"General Knowledge"}>
+                    General Knowledge
+                  </MenuItem>
+                  <MenuItem value={"Arts & Literature"}>
+                    Arts & Literature
+                  </MenuItem>
                   <MenuItem value={"Film & TV"}>Film & TV</MenuItem>
                   <MenuItem value={"Food & Drink"}>Food & Drink</MenuItem>
-                  <MenuItem value={"Society & Culture"}>Society & Culture</MenuItem>
+                  <MenuItem value={"Society & Culture"}>
+                    Society & Culture
+                  </MenuItem>
                   <MenuItem value={"Geography"}>Geography</MenuItem>
                   <MenuItem value={"History"}>History</MenuItem>
                   <MenuItem value={"Music"}>Music</MenuItem>
@@ -77,7 +97,9 @@ export default function Home() {
             </Box>
             <Box sx={{ minWidth: 320 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Difficulty
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -88,7 +110,6 @@ export default function Home() {
                   <MenuItem value={"Easy"}>Easy</MenuItem>
                   <MenuItem value={"Medium"}>Medium</MenuItem>
                   <MenuItem value={"Hard"}>Hard</MenuItem>
-                  
                 </Select>
               </FormControl>
             </Box>
@@ -96,7 +117,7 @@ export default function Home() {
             <p className="text-sm lg:text-sm font-bold">
               Total Questions: {totalQuestions}
             </p>
-            <Box sx={{ width: 300, margin: "1rem" }}>
+            <Box sx={{ width: 280, margin: "1rem" }}>
               <Slider
                 aria-label="Temperature"
                 Value={totalQuestions}
@@ -110,6 +131,12 @@ export default function Home() {
                 max={50}
               />
             </Box>
+
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" href="#contained-buttons" disabled={!isQuizReady}>
+                Start Quiz
+              </Button>
+            </Stack>
           </div>
         </div>
       </div>
