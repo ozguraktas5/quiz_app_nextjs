@@ -9,46 +9,50 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-function valuetext(value: number) {
+function valuetext(value) {
   return `${value}`;
 }
 
 export default function Home() {
-  const [totalQuestions, setTotalQuestions] = useState<number>(5);
-  const [category, setCategory] = React.useState<string>("");
-  const [difficulty, setDifficulty] = React.useState<string>("");
-  const [isQuizReady, setIsQuizReady] = useState<boolean>(false);
+  const [totalQuestions, setTotalQuestions] = useState(5);
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [isQuizReady, setIsQuizReady] = useState(false);
+  const router = useRouter();
 
-  const handleChangeCategory = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    const selectedCategory = event.target.value as string;
+  const handleChangeCategory = (event) => {
+    const selectedCategory = event.target.value;
     setCategory(selectedCategory);
     checkQuizReady(selectedCategory, difficulty);
   };
 
-  const handleChangeDifficulty = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    const selectedDifficulty = event.target.value as string;
+  const handleChangeDifficulty = (event) => {
+    const selectedDifficulty = event.target.value;
     setDifficulty(selectedDifficulty);
     checkQuizReady(category, selectedDifficulty);
   };
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setTotalQuestions(newValue as number);
+  const handleSliderChange = (event, newValue) => {
+    setTotalQuestions(newValue);
     checkQuizReady(category, difficulty);
   };
 
-  const checkQuizReady = (
-    selectedCategory: string,
-    selectedDifficulty: string
-  ) => {
+  const checkQuizReady = (selectedCategory, selectedDifficulty) => {
     if (selectedCategory && selectedDifficulty && totalQuestions >= 5) {
       setIsQuizReady(true);
     } else {
       setIsQuizReady(false);
+    }
+  };
+
+  const handleStartQuiz = () => {
+    if (isQuizReady) {
+      const url = `/questions?category=${encodeURIComponent(
+        category.toLowerCase().replace(" & ", "_and_")
+      )}&difficulty=${difficulty.toLowerCase()}&limit=${totalQuestions}`;
+      router.push(url);
     }
   };
 
@@ -139,13 +143,17 @@ export default function Home() {
                 max={50}
               />
             </Box>
-
-            <Link
-              href="/hello"
-              className="inline-block gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-            >
-              Start Quiz
-            </Link>
+            <div>
+              <Link
+                href={isQuizReady ? "#" : "/"}
+                onClick={handleStartQuiz}
+                className={`inline-block gap-5 self-start rounded-lg ${
+                  isQuizReady ? "bg-blue-500 hover:bg-blue-400" : "bg-gray-300"
+                } px-6 py-3 text-sm font-medium text-white transition-colors md:text-base`}
+              >
+                Start Quiz
+              </Link>
+            </div>
           </div>
         </div>
       </div>
