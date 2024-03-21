@@ -1,7 +1,12 @@
+import React from "react";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Hello',
+};
+
 export default function HelloPage() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <main>Hello</main>
   );
 }
