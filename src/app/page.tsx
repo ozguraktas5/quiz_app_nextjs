@@ -8,45 +8,48 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+import Link from "next/link";
 
-function valuetext(value) {
+function valuetext(value: number) {
   return `${value}`;
 }
 
 export default function Home() {
-  const [totalQuestions, setTotalQuestions] = useState(5);
-  const [category, setCategory] = React.useState("");
-  const [difficulty, setDifficulty] = React.useState("");
-  const [isQuizReady, setIsQuizReady] = useState(false);
+  const [totalQuestions, setTotalQuestions] = useState<number>(5);
+  const [category, setCategory] = React.useState<string>("");
+  const [difficulty, setDifficulty] = React.useState<string>("");
+  const [isQuizReady, setIsQuizReady] = useState<boolean>(false);
 
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-    checkQuizReady(event.target.value, difficulty);
+  const handleChangeCategory = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    const selectedCategory = event.target.value as string;
+    setCategory(selectedCategory);
+    checkQuizReady(selectedCategory, difficulty);
   };
 
-  const handleChangeDifficulty = (event) => {
-    setDifficulty(event.target.value);
-    checkQuizReady(category, event.target.value);
+  const handleChangeDifficulty = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    const selectedDifficulty = event.target.value as string;
+    setDifficulty(selectedDifficulty);
+    checkQuizReady(category, selectedDifficulty);
   };
 
-  const handleSliderChange = (event, newValue) => {
-    setTotalQuestions(newValue);
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setTotalQuestions(newValue as number);
     checkQuizReady(category, difficulty);
   };
 
-  const checkQuizReady = (category, difficulty) => {
-    if (category && difficulty && totalQuestions >= 5) {
+  const checkQuizReady = (
+    selectedCategory: string,
+    selectedDifficulty: string
+  ) => {
+    if (selectedCategory && selectedDifficulty && totalQuestions >= 5) {
       setIsQuizReady(true);
     } else {
       setIsQuizReady(false);
     }
-  };
-
-  const handleStartQuiz = () => {
-    const url = `http://localhost:3000/questions?category=${encodeURIComponent(category)}&difficulty=${encodeURIComponent(difficulty)}&limit=${totalQuestions}`;
-    window.location.href = url;
   };
 
   return (
@@ -62,8 +65,8 @@ export default function Home() {
               priority
               src="/quiz.png"
               alt="img"
-              width="350"
-              height="350"
+              width={350}
+              height={350}
               className="object-cover object-center vertical-middle"
             />
           </div>
@@ -124,8 +127,8 @@ export default function Home() {
             </p>
             <Box sx={{ width: 280, margin: "1rem" }}>
               <Slider
-                aria-label="Temperature"
-                Value={totalQuestions}
+                aria-label="Slider"
+                value={totalQuestions}
                 onChange={handleSliderChange}
                 getAriaValueText={valuetext}
                 valueLabelDisplay="auto"
@@ -137,15 +140,12 @@ export default function Home() {
               />
             </Box>
 
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="contained"
-                onClick={handleStartQuiz}
-                disabled={!isQuizReady}
-              >
-                Start Quiz
-              </Button>
-            </Stack>
+            <Link
+              href="/hello"
+              className="inline-block gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+            >
+              Start Quiz
+            </Link>
           </div>
         </div>
       </div>
