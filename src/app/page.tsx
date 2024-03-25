@@ -148,9 +148,14 @@ export default function Home() {
                 href={
                   isQuizReady
                     ? {
-                        pathname: `/questions?category=${encodeURIComponent(
-                          category.toLowerCase().replace(" & ", "_and_")
-                        )}&difficulty=${difficulty.toLowerCase()}&limit=${totalQuestions}`,
+                        pathname: `/questions`,
+                        query: {
+                          category: encodeURIComponent(
+                            category.toLowerCase().replace(" & ", "_and_")
+                          ),
+                          difficulty: difficulty.toLowerCase(),
+                          limit: totalQuestions,
+                        },
                       }
                     : ""
                 }
