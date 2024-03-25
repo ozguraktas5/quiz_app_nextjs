@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function valuetext(value) {
   return `${value}`;
@@ -145,7 +145,15 @@ export default function Home() {
             </Box>
             <div>
               <Link
-                href={isQuizReady ? "#" : "/"}
+                href={
+                  isQuizReady
+                    ? {
+                        pathname: `/questions?category=${encodeURIComponent(
+                          category.toLowerCase().replace(" & ", "_and_")
+                        )}&difficulty=${difficulty.toLowerCase()}&limit=${totalQuestions}`,
+                      }
+                    : ""
+                }
                 onClick={handleStartQuiz}
                 className={`inline-block gap-5 self-start rounded-lg ${
                   isQuizReady ? "bg-blue-500 hover:bg-blue-400" : "bg-gray-300"
