@@ -6,8 +6,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import Home from "../app/page";
-
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 15,
