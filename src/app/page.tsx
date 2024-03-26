@@ -11,7 +11,6 @@ import Select from "@mui/material/Select";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
 function valuetext(value) {
   return `${value}`;
 }
@@ -161,7 +160,6 @@ export default function Home() {
                     : ""
                 }
                 onClick={handleStartQuiz}
-                
                 className={`inline-block gap-5 self-start rounded-lg ${
                   isQuizReady ? "bg-blue-500 hover:bg-blue-400" : "bg-gray-300"
                 } px-6 py-3 text-sm font-medium text-white transition-colors md:text-base`}
