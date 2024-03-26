@@ -7,6 +7,8 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 
+
+
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 15,
   borderRadius: 5,
@@ -41,14 +43,18 @@ export default function QuestionsPage() {
   return (
     <main className="wrapper flex justify-center items-center h-screen">
       <div className="bg-white p-3 rounded-md md:w-[90%] w-full h-full md:h-[90%] lg:h-[90%] shadow-lg max-w-4xl">
-        <h1 className="text-center p-2 text-blue-600 text-5xl tracking-wider font-bold">
+        <h1 className="text-center p-2 text-blue-600 text-4xl tracking-wider font-bold">
           Quizy
         </h1>
-        <div className="w-full h-[2px] bg-border bg-slate-200 mt-1"></div>
-        Questions
+        <div className="w-full h-[2px] bg-border bg-slate-200 mt-2 mb-4"></div>
+        
         <Stack spacing={2} sx={{ flexGrow: 1 }}>
           <BorderLinearProgress variant="determinate" value={50} />
         </Stack>
+        <div>
+          <p>Category:</p>
+          <p></p>
+        </div>
       </div>
     </main>
   );
